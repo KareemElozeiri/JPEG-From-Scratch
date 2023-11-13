@@ -31,10 +31,10 @@ class DCT:
                 X_slice = X[i:i+base_dim, j:j+base_dim]
                 y[i:i+base_dim, j:j+base_dim] = np.sum(basis*X_slice, axis=(2,3))
 
-        y[0,0] = y[0,0]/64
-        y[0, 1:] = y[0, 1:]/32
-        y[1:, 0] = y[1:, 0]/32
-        y[1:, 1:] = y[1:, 1:]/16
+        # y[0,0] = y[0,0]/64
+        # y[0, 1:] = y[0, 1:]/32
+        # y[1:, 0] = y[1:, 0]/32
+        # y[1:, 1:] = y[1:, 1:]/16
 
         return y
 
