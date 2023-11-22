@@ -22,7 +22,7 @@ class DCT:
         return basis 
     
     @staticmethod
-    def DCT(X:np.array, base_dim=8) -> np.array:
+    def DCT(X:np.array, base_dim=8, op="dct") -> np.array:
         y = np.zeros(X.shape)
         basis = DCT.get_basis(base_dim)
 
@@ -31,10 +31,18 @@ class DCT:
                 X_slice = X[i:i+base_dim, j:j+base_dim]
                 y[i:i+base_dim, j:j+base_dim] = np.sum(basis*X_slice, axis=(2,3))
 
-        # y[0,0] = y[0,0]/64
-        # y[0, 1:] = y[0, 1:]/32
-        # y[1:, 0] = y[1:, 0]/32
-        # y[1:, 1:] = y[1:, 1:]/16
+                if op=="dct":
+                    if i==0 and j==0:
+                        y[i:i+base_dim, j:j+base_dim] /= 64
+                    elif i==0 or j==0:
+                        y[i:i+base_dim, j:j+base_dim] /= 32
+                    else:
+                        y[i:i+base_dim, j:j+base_dim] /= 61
+                    
 
+  
         return y
 
+    @staticmethod
+    def IDCT(X:np.array, base_dim=8) -> np.array:
+       return DCT.DCT(X, base_dim, op="idct")

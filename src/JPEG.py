@@ -26,9 +26,17 @@ class JPEG:
                     vector[curr_index] = img[d1+i][d2-i]
 
                 curr_index += 1
-            
-      
         
         return vector
+    
+    @staticmethod
+    def vector2img(vector:np.array):
+        pass 
+ 
+    def compress(self, img)->str:
+        pass 
+
+    def decompress(self, stream)->np.array:
+        pass 
 
     
