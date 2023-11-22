@@ -30,8 +30,29 @@ class JPEG:
         return vector
     
     @staticmethod
-    def vector2img(vector:np.array):
-        pass 
+    def vector2img(vector:np.array, img_shape):
+        rows, cols = img_shape
+        img = np.zeros((rows,cols))
+        curr_index = 0
+        
+        for d in range(rows+cols-1):
+            d1 = d%rows + d//rows
+            d2 = d-d1
+            diff = np.abs(d1-d2)
+
+            if d%2 != 0 & d1>=d2:
+                 d1, d2 = d2, d1
+
+            for i in range(0,diff+1):
+                if d1>=d2:
+                    img[d1-i][d2+i] = vector[curr_index] 
+                else:
+                    img[d1+i][d2-i] = vector[curr_index]
+
+                curr_index += 1
+        
+        return img
+    
  
     def compress(self, img)->str:
         pass 
