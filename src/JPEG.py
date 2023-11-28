@@ -8,48 +8,67 @@ class JPEG:
     @staticmethod
     def img2vector(img:np.array)->np.array:
         rows, cols = img.shape
-        vector = np.zeros(rows*cols)
-        curr_index = 0
-        
+        vector = np.array([])
+
         for d in range(rows+cols-1):
-            d1 = d%rows + d//rows
-            d2 = d-d1
-            diff = np.abs(d1-d2)
+            if d%2 == 0:
+                d1, d2, limit = d, 0, d+1 
+                if d>(rows-1):
+                    d1 = rows - 1
+                    d2 = d - d1
+                    limit = d1-d2+1
+                for i in range(limit):
+                    vector = np.append(vector, img[d1, d2])
+                    d1 = d1 -1
+                    d2 = d2 +1
+                    
+            else:
+                d1, d2, limit = 0, d, d+1
 
-            if d%2 != 0 & d1>=d2:
-                 d1, d2 = d2, d1
+                if d>rows-1:
+                    d2 = rows - 1
+                    d1 = d - d2
+                    limit = d2-d1 +1
 
-            for i in range(0,diff+1):
-                if d1>=d2:
-                    vector[curr_index] = img[d1-i][d2+i]
-                else:
-                    vector[curr_index] = img[d1+i][d2-i]
-
-                curr_index += 1
-        
-        return vector
+                for i in range(limit):
+                    vector = np.append(vector, img[d1, d2])
+                    d1 += 1
+                    d2 -= 1         
+            
+            return vector
     
     @staticmethod
     def vector2img(vector:np.array, img_shape):
         rows, cols = img_shape
-        img = np.zeros((rows,cols))
-        curr_index = 0
-        
+        img = np.zeros(img_shape)
+        current_index = 0
+
         for d in range(rows+cols-1):
-            d1 = d%rows + d//rows
-            d2 = d-d1
-            diff = np.abs(d1-d2)
+            if d%2 == 0:
+                d1, d2, limit = d, 0, d+1 
+                if d>(rows-1):
+                    d1 = rows - 1
+                    d2 = d - d1
+                    limit = d1-d2+1
+                for i in range(limit):
+                    img[d1, d2] = vector[current_index]
+                    current_index +=1
+                    d1 = d1 -1
+                    d2 = d2 +1
+                    
+            else:
+                d1, d2, limit = 0, d, d+1
 
-            if d%2 != 0 & d1>=d2:
-                 d1, d2 = d2, d1
+                if d>rows-1:
+                    d2 = rows - 1
+                    d1 = d - d2
+                    limit = d2-d1 +1
 
-            for i in range(0,diff+1):
-                if d1>=d2:
-                    img[d1-i][d2+i] = vector[curr_index] 
-                else:
-                    img[d1+i][d2-i] = vector[curr_index]
-
-                curr_index += 1
+                for i in range(limit):
+                    img[d1, d2] = vector[current_index]
+                    current_index += 1
+                    d1 += 1
+                    d2 -= 1         
         
         return img
     
