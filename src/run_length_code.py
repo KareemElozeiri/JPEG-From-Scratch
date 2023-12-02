@@ -13,6 +13,7 @@ class RunLengthCode:
             if vector[i-1]==0:
                 count = 1
                 
+                while i<len(vector) and vector[i]==0:
                     count += 1
                     i+= 1
 
