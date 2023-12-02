@@ -33,7 +33,7 @@ class Huffman:
     def compute_codes(self):
         pq = [TreeNode(s, f) for s, f in self._symbols_frequencies.items()]
         heapq.heapify(pq)
-
+        
         while len(pq) > 1:
             left_child = heapq.heappop(pq)
             right_child = heapq.heappop(pq)
@@ -64,12 +64,18 @@ class Huffman:
     def decode(self, stream:str)->str:
         stream_length = len(stream)
         decoded_stream = ""
+        decoded_arr = []
         i = 0
         while i<stream_length:
             for j in range(i+1,stream_length+1):
                 if stream[i:j] in self._codes_symbols.keys():
-                    decoded_stream += self._codes_symbols[stream[i:j]]
+                    current_code = self._codes_symbols[stream[i:j]]
+                    if current_code == ',':
+                        decoded_arr.append(float(decoded_stream))
+                        decoded_stream = ""
+                    else:
+                        decoded_stream += current_code                   
                     break
             i=j 
 
-        return decoded_stream
+        return decoded_arr
