@@ -38,7 +38,7 @@ class DCT:
                 else:
                     y[i:i+base_dim, j:j+base_dim] /= 16
                 
-
+        
   
         return y
 
