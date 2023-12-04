@@ -18,8 +18,8 @@ class RunLengthCode:
                     i+= 1
 
                 out_vect = np.append(out_vect,count)
-                
-        return out_vect
+
+        return out_vect.astype(np.int32).astype(str)
 
 
     @staticmethod

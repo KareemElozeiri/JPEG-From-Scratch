@@ -72,4 +72,4 @@ class Huffman:
 
         decoded_stream = np.array(decoded_stream) 
 
-        return decoded_stream
+        return decoded_stream.astype(np.int32)

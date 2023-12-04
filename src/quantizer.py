@@ -2,7 +2,9 @@ import numpy as np
 
 class Quantizer:
 
-    def __init__(self):
+    def __init__(self,type='low'):
+        self.type =type
+
         self._Low_compression_table = np.array([[ 1,  1,  1,  1,  1,  2,  2,  4],
         [ 1,  1,  1,  1,  1,  2,  2,  4],
         [ 1,  1,  1,  1,  2,  2,  2,  4],
@@ -43,17 +45,17 @@ class Quantizer:
         return quantized_img.astype(int)
     
 
-    def Low_compression(self,img):
-        return self._quantization(img,self._Low_compression_table)
-    
-    def High_compression(self,img):
-        return self._quantization(img,self._High_compression_table)
-
-    def reverse_Low_compression(self,img):
-        return self._reverse_quantization(img,self._Low_compression_table)
-
-    def reverse_High_compression(self,img):
-        return self._reverse_quantization(img,self._High_compression_table)
+    def quantization(self,img):
+        if self.type == 'low':
+            return self._quantization(img,self._Low_compression_table)
+        else:
+            return self._quantization(img,self._High_compression_table)
+            
+    def reverse_quantization(self,img):
+        if self.type == 'low':
+            return self._reverse_quantization(img,self._Low_compression_table)
+        else:
+            return self._reverse_quantization(img,self._High_compression_table)
     
     
     
