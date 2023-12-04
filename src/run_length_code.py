@@ -8,17 +8,17 @@ class RunLengthCode:
 
         i = 0
         while i<len(vector):
-            out_vect = np.append(out_vect, vector[i])
+            out_vect =np.append(out_vect,vector[i])
             i += 1
             if vector[i-1]==0:
                 count = 1
                 
-                while vector[i]==0:
+                while i<len(vector) and vector[i]==0:
                     count += 1
                     i+= 1
 
-                out_vect = np.append(out_vect ,count)
-
+                out_vect = np.append(out_vect,count)
+                
         return out_vect
 
 
