@@ -20,6 +20,8 @@ class Huffman:
         self._codes_symbols = dict(map(reversed, self.compute_codes().items()))
 
 
+    
+    #assigning codes to nodes after heapfication
     def _assign_code(self, node, code="", mapping={}):
         if node:
             if node.symbol:
@@ -31,7 +33,7 @@ class Huffman:
 
 
     def compute_codes(self):
-        pq = [TreeNode(s, f) for s, f in self._symbols_frequencies.items()]
+        pq = [TreeNode(s, f) for s, f in self._symbols_frequencies.items()] #constructing code tree through heapification based on frequency
         heapq.heapify(pq)
         
         while len(pq) > 1:
