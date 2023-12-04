@@ -1,6 +1,6 @@
 import heapq
 from collections import Counter
-
+import numpy as np
 
 class TreeNode:
     def __init__(self, symbol=None, freq=None, left=None, right=None) -> None:
@@ -47,29 +47,27 @@ class Huffman:
         return self._assign_code(root)
 
     
-    def encode(self, stream:str)->str:
-        stream_length = len(stream)
+    def encode(self, stream:np.array)->str:
         encoded_stream = ""
-        i = 0
-        while i<stream_length:
-            for j in range(i+1,stream_length+1):
-                if stream[i:j] in self._symbols_codes.keys():
-                    encoded_stream += self._symbols_codes[stream[i:j]]
-                    break
-            
-            i=j 
+        
+        for symbol in stream:
+                if symbol in self._symbols_codes.keys():
+                    encoded_stream += self._symbols_codes[symbol]            
+    
 
         return encoded_stream 
 
-    def decode(self, stream:str)->str:
+    def decode(self, stream:str)->np.array:
         stream_length = len(stream)
-        decoded_stream = ""
+        decoded_stream = []
         i = 0
         while i<stream_length:
             for j in range(i+1,stream_length+1):
                 if stream[i:j] in self._codes_symbols.keys():
-                    decoded_stream += self._codes_symbols[stream[i:j]]
+                    decoded_stream.append(self._codes_symbols[stream[i:j]])
                     break
-            i=j 
+            i=j
+
+        decoded_stream = np.array(decoded_stream) 
 
         return decoded_stream
