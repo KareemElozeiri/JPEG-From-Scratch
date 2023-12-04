@@ -44,7 +44,7 @@ class Quantizer:
                 quantized_img[i:i+box_dim, j:j+box_dim] = box * table
         return quantized_img.astype(int)
     
-
+    # select the box function based on the its type
     def quantization(self,img):
         if self.type == 'low':
             return self._quantization(img,self._Low_compression_table)
