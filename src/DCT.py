@@ -54,6 +54,6 @@ class DCT:
         for i in range(0, X.shape[0], base_dim):
             for j in range(0, X.shape[1], base_dim):
                 X_slice = X[i:i + base_dim, j:j + base_dim]
-                y[i:i + base_dim, j:j + base_dim] = np.sum(basis * X_slice[:, :, np.newaxis, np.newaxis], axis=(0, 1))
+                y[i:i + base_dim, j:j + base_dim] = np.sum(X_slice[:, :, np.newaxis, np.newaxis]/basis, axis=(0, 1))
 
         return y
